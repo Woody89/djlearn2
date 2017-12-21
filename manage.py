@@ -2,7 +2,7 @@
 import os
 import sys
 
-#the entry of the project
+#the entry of the project test
 if __name__ == "__main__":
     #setting blog.settings as default setting configuration files
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog.settings")
