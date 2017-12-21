@@ -1,0 +1,80 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <h1 class="page-header">
+                {% if cate_name %}
+                    Category: { cate_name }}
+                {% elif tag_name %}
+                    Tag: {{ tag_name }}
+                {% else %}
+                    Article
+                {% endif %}
+            </h1>
+
+            <div>
+                {% load paginate_tags %}
+                {% paginate article_list 3 %}
+                {% for article in article_list %}
+                <div>
+                    <h2>
+                        <a href="{% url 'app:detail' article.pk %}">{{ article.title }}</a>
+                    </h2>
+                    <p><span class="glyphicon glyphicon-time"></span> {{ article.created_time }}</p>
+                    <hr>
+                    <p>{{ article.body | safe | truncatewords:10}}</p>
+                </div>
+                <div><a class="btn btn-primary" href="{% url 'app:detail' article.pk %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+                <span class="post-views">Views: {{ article.views }}</span>
+                <hr>
+                {% endfor %}
+            </div>
+            <div>
+                {% include 'blog/pagination.html' %}
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <!-- Blog Search Well -->
+
+            <div class="well">
+                <h4>Blog Search</h4>
+                <form action="/search/" method="get">
+                    <div class="input-group">
+                        <input type="text" name="search_for" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.input-group -->
+            </div>
+
+            <!-- Blog Categories Well -->
+            {% include "blog/category.html" %}
+
+
+            <!-- Side Widget Well -->
+            <div class="well">
+                <h4><span class="glyphicon glyphicon-align-justify"></span>About the Blog</h4>
+                <p>This is a test Blog. You can test anything you want!</p>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+
+{% endblock content %}
+
+
