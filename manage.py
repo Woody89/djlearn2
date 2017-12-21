@@ -2,7 +2,9 @@
 import os
 import sys
 
+#the entry of the project
 if __name__ == "__main__":
+    #setting blog.settings as default setting configuration files
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog.settings")
     try:
         from django.core.management import execute_from_command_line
@@ -19,4 +21,5 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
+    #something like python manage.py runserver 127.0.0.1:9000
     execute_from_command_line(sys.argv)
