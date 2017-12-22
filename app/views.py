@@ -5,9 +5,9 @@ import logging
 from django.shortcuts import render, get_object_or_404, get_list_or_404,\
     redirect
 from django.views.generic.list import ListView
-from app.models import Article, Category, Tag, Suggest, BlogComment, Imitate
+from app.models import Article, Category, Tag, Suggest, BlogComment, Imitate, User
 from django.views.generic.detail import DetailView
-from .forms import BlogCommentForm, SuggestForm, ImitateForm
+from .forms import BlogCommentForm, SuggestForm, ImitateForm, UserForm
 
 logger = logging.getLogger(__name__)
 
@@ -139,6 +139,34 @@ def suggest_view(request):
             return redirect('app:thanks')
     return render(request, 'blog/about.html', {'form': form})
 
+#user regist 
+def regist(request):
+    userform = UserForm()
+    if request.method == 'POST':
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            username = userform.cleaned_data['username']
+            password = userform.cleaned_data['password']
+            email = userform.cleaned_data['email']
+            user = User.objects.create(username=username, password=password, email=email)
+            User.save(user)
+            return redirect('app:success')
+    return render(request, 'blog/regist.html', {'userform': userform})
+
+def login(request):
+    userform = UserForm
+    if request.method == 'POST':
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            username = userform.cleaned_data['username']
+            password = userform.cleaned_data['password']
+            user = User.objects.filter(username=username,
+                                       password=password)
+            if user:
+                request.session['username'] = username
+                return redirect('app:index')
+    return render(request, 'blog/login.html', {'userform': userform})
+
 def imitate_view(request):
     form = ImitateForm()
     if request.method == 'POST':
@@ -152,3 +180,6 @@ def imitate_view(request):
 
 def thanks(request,):
     return render(request, 'blog/thanks.html')
+
+def success(request):
+    return render(request, 'blog/success.html')

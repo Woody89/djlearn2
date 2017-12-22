@@ -86,3 +86,11 @@ class Imitate(models.Model):
     
     def __str__(self):
         return self.imitate_name
+    
+class User(models.Model):
+    username = models.CharField('username', max_length=20)
+    password = models.CharField('password', max_length=20)
+    email = models.EmailField()
+    
+    def __str__(self):
+        return models.Model.__str__(self)
