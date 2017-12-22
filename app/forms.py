@@ -1,5 +1,5 @@
 from django import forms
-from .models import BlogComment, Suggest, Imitate
+from .models import BlogComment, Suggest, Imitate, User
 
 
 class BlogCommentForm(forms.ModelForm):
@@ -32,6 +32,28 @@ class SuggestForm(forms.ModelForm):
                 'cols': 80,
                 })
         }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email']
+        widgets = {
+                   'username': forms.TextInput(attrs={
+                                'class': 'form-control',
+                                'placeholder': 'please input username',
+                                'aria-describedby': 'sizing-addon1',
+                                }),
+                   'password': forms.PasswordInput(attrs={
+                                'placeholder': 'please input your password',
+                                'class': 'form-control',
+                                'rows': 4,
+                                }),
+                   'email': forms.TextInput(attrs={
+                                'placeholder': 'please input your email',
+                                'class': 'form-control',
+                                'rows': 4,
+                                }),
+                   }
 
 
 class ImitateForm(forms.ModelForm):

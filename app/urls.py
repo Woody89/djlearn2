@@ -13,5 +13,8 @@ urlpatterns = [
                url(r"^category/(?P<cate_id>\d+)$", views.CategoryView.as_view(), name='category'),
                url(r'^article/(?P<article_id>\d+)/comment/$', views.CommentView, name='comment'),
                url(r'^tags/(?P<tag_id>\d+)$', views.TagView.as_view(), name='tag'),
-               url(r'^thanks/$', views.thanks, name='thanks')
+               url(r'^thanks/$', views.thanks, name='thanks'),
+               url(r'^success/$', views.success, name='success'),
+               url(r'^regist/$', views.regist, name='regist'),
+               url(r'^login/$', views.login, name='login'),
                ]
