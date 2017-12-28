@@ -95,10 +95,12 @@ class TagView(ListView):
 def CommentView(request, article_id):
     if request.method == 'POST':
         form = BlogCommentForm(request.POST)
+        import pdb
+        pdb.set_trace()
         if form.is_valid():
-            name = form.cleaned_data['user_name']
+            name = request.session['username']
             body = form.cleaned_data['body']
-            logger.info("name: %s", name)
+            logger.info("comment username: %s", name)
 
             article = get_object_or_404(Article, pk=article_id)
             new_record = BlogComment(user_name=name,
