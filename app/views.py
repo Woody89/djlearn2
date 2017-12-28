@@ -27,8 +27,8 @@ class IndexView(ListView):
         kwargs['category_list'] = Category.objects.all().order_by('name')
         kwargs['tag_list'] = Tag.objects.all().order_by('name')
         return super(IndexView, self).get_context_data(**kwargs)
-
-
+    
+    
 class ArticleDetailView(DetailView):
     
     model = Article
@@ -166,6 +166,10 @@ def login(request):
                 request.session['username'] = username
                 return redirect('app:index')
     return render(request, 'blog/login.html', {'userform': userform})
+
+def logout(request):
+    del request.session['username']
+    return render(request, 'blog/success.html')
 
 def imitate_view(request):
     form = ImitateForm()

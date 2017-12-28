@@ -19,7 +19,6 @@
             <div>
                 {% load paginate_tags %}
                 {% paginate article_list 3 %}
-                <h1> Hello Word! welcome {% csrf_token %} {{username}}</h1></li>
                 {% for article in article_list %}
                 <div>
                     <h2>
