@@ -52,7 +52,14 @@
             		<li>
             			<a href="{% url 'app:regist' %}">RegistPage</a>
             		</li>
+            		{% if request.session.username %}
+            		<li> <a href="">Current User: {% csrf_token %} {{request.session.username}}</a></li>
+            		<li> <a href="{% url 'app:logout' %}">Logout</a></li>
+            		{% else %}
             		<li>
+            			<a href="{% url 'app:login' %}">Login</a>
+            		</li>
+            		{% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

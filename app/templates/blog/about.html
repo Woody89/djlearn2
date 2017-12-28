@@ -49,6 +49,7 @@
                     <li>
                         <a href="{% url 'app:imitate' %}">ImitatePage</a>
                     </li>
+                    <li> <a href="">Current User: {% csrf_token %} {{request.session.username}}</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
