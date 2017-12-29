@@ -26,6 +26,7 @@ SECRET_KEY = ')66izh3wkv&2q2$llz7j3)%jwu%az3ih9sbm6r8+dyu^ix0l#t'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+TIME_ZONE = 'UTC'
 
 
 # Application definition
@@ -177,12 +178,27 @@ LOGGING = {
     }
 }
 
+#Celery Settings
+BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_ENABLE_UTC = True
+CELERY_TIMEZONE = TIME_ZONE
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.sina.com"
+EMAIL_HOST_PASSWORD = 'hided'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER = "a1007881221@qq.com"
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
