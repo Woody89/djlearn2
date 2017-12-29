@@ -5,13 +5,8 @@ from .models import BlogComment, Suggest, Imitate, User
 class BlogCommentForm(forms.ModelForm):
     class Meta:
         model = BlogComment
-        fields = ['user_name', 'body']
+        fields = ['body']
         widgets = {
-                   'user_name': forms.TextInput(attrs={
-                                'class': 'form-control',
-                                'placeholder': 'please input name',
-                                'aria-describedby': 'sizing-addon1',
-                                }),
                    'body': forms.Textarea(attrs={
                                 'placeholder': 'let me say',
                                 'class': 'form-control',
