@@ -1,5 +1,6 @@
 # djlearn2
 A project for testing django and smthing else technoligies
+
 1.测试django
 2.涵盖知识点:
   ……Celery-异步任务神器
