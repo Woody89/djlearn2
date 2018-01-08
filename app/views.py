@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from app.models import Article, Category, Tag, Suggest, BlogComment, Imitate, User
 from django.views.generic.detail import DetailView
 from .forms import BlogCommentForm, SuggestForm, ImitateForm, UserForm
+from .tasks import celery_send_email
 
 logger = logging.getLogger(__name__)
 
@@ -95,8 +96,6 @@ class TagView(ListView):
 def CommentView(request, article_id):
     if request.method == 'POST':
         form = BlogCommentForm(request.POST)
-        import pdb
-        pdb.set_trace()
         if form.is_valid():
             name = request.session['username']
             body = form.cleaned_data['body']
@@ -138,6 +137,10 @@ def suggest_view(request):
             suggest_data = form.cleaned_data['suggest']
             new_record = Suggest(suggest=suggest_data)
             new_record.save()
+            try:
+                celery_send_email.delay('suggestion', suggest_data, 'a1007881221@qq.com', ['a1007881221@qq.com'])
+            except Exception as e:
+                logger.error("Send failed: {}".format(e))
             return redirect('app:thanks')
     return render(request, 'blog/about.html', {'form': form})
 
